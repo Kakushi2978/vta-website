@@ -13,23 +13,15 @@ export default function EnrollmentForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Construct a professional, structured message block for the coach
-    const message = "Hello Coach! I would like to enroll my child at Venancio Taekwondo Academy.%0A%0A" +
-                    "• Student Name: " + formData.studentName + "%0A" +
-                    "• Age: " + formData.age + " years old%0A" +
-                    "• Parent Contact: " + formData.parentContact + "%0A" +
-                    "• Branch Venue: " + formData.preferredBranch + "%0A" +
-                    "• Experience Level: " + formData.experience;
+  // Dynamically compile the values for the m.me URL link
+  const studentInfoMessage = "Hello Coach! I would like to enroll my child at Venancio Taekwondo Academy.%0A%0A" +
+    "• Student Name: " + encodeURIComponent(formData.studentName || 'Not specified') + "%0A" +
+    "• Age: " + encodeURIComponent(formData.age || 'Not specified') + " years old%0A" +
+    "• Parent Contact: " + encodeURIComponent(formData.parentContact || 'Not specified') + "%0A" +
+    "• Branch Venue: " + encodeURIComponent(formData.preferredBranch) + "%0A" +
+    "• Experience Level: " + encodeURIComponent(formData.experience);
 
-    // Direct m.me link format targeting the VTA Page ID node
-    const messengerUrl = "https://m.me" + message;
-    
-    // Direct link assignment bypasses browser pop-up blocks completely!
-    window.location.href = messengerUrl;
-  };
+  const messengerUrl = "https://m.me" + studentInfoMessage;
 
   return (
     <section id="register" className="max-w-4xl mx-auto px-6 py-20 border-t border-gray-900">
@@ -45,7 +37,7 @@ export default function EnrollmentForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl space-y-6">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl space-y-6">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Student Full Name */}
@@ -138,17 +130,19 @@ export default function EnrollmentForm() {
           </div>
         </div>
 
-        {/* Submit Button */}
+        {/* DIRECT HYPERLINK SUBMIT ACTION */}
         <div className="pt-4">
-          <button 
-            type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer text-center block text-sm tracking-wide"
+          <a 
+            href={messengerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer block text-sm tracking-wide"
           >
             Submit & Open Messenger Setup
-          </button>
+          </a>
         </div>
 
-      </form>
+      </div>
     </section>
   );
 }
