@@ -16,7 +16,7 @@ export default function EnrollmentForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Using standard robust concatenation to prevent backtick mismatch typos completely
+    // Construct a professional, structured message block for the coach
     const message = "Hello Coach! I would like to enroll my child at Venancio Taekwondo Academy.%0A%0A" +
                     "• Student Name: " + formData.studentName + "%0A" +
                     "• Age: " + formData.age + " years old%0A" +
@@ -24,11 +24,11 @@ export default function EnrollmentForm() {
                     "• Branch Venue: " + formData.preferredBranch + "%0A" +
                     "• Experience Level: " + formData.experience;
 
-    // Direct, cleanly structured Messenger redirection URL link
+    // Direct m.me link format targeting the VTA Page ID node
     const messengerUrl = "https://m.me" + message;
     
-    // Safe redirection tab action trigger
-    window.open(messengerUrl, '_blank');
+    // Direct link assignment bypasses browser pop-up blocks completely!
+    window.location.href = messengerUrl;
   };
 
   return (
