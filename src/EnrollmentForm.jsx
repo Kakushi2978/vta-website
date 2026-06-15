@@ -13,15 +13,29 @@ export default function EnrollmentForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Dynamically compile the values for the m.me URL link
-  const studentInfoMessage = "Hello Coach! I would like to enroll my child at Venancio Taekwondo Academy.%0A%0A" +
-    "• Student Name: " + encodeURIComponent(formData.studentName || 'Not specified') + "%0A" +
-    "• Age: " + encodeURIComponent(formData.age || 'Not specified') + " years old%0A" +
-    "• Parent Contact: " + encodeURIComponent(formData.parentContact || 'Not specified') + "%0A" +
-    "• Branch Venue: " + encodeURIComponent(formData.preferredBranch) + "%0A" +
-    "• Experience Level: " + encodeURIComponent(formData.experience);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // 1. Construct a clean text receipt for the parent to copy
+    const textReceipt = `Hello Coach! I would like to enroll my child at Venancio Taekwondo Academy.\n\n` +
+                        `• Student Name: ${formData.studentName}\n` +
+                        `• Age: ${formData.age} years old\n` +
+                        `• Parent Contact: ${formData.parentContact}\n` +
+                        `• Branch Venue: ${formData.preferredBranch}\n` +
+                        `• Experience Level: ${formData.experience}`;
 
-  const messengerUrl = "https://m.me" + studentInfoMessage;
+    // 2. Automatically copy the data to their clipboard using native browser APIs
+    navigator.clipboard.writeText(textReceipt).then(() => {
+      // 3. Inform the user with a friendly, professional pop-up alert box
+      alert("📋 Registration info copied to clipboard!\n\nMessenger will now open. Simply right-click and 'Paste' (or Ctrl+V) inside the chat box to send your details to the Coach!");
+      
+      // 4. Force a clean, standard URL redirection in the SAME tab (unblockable by Chrome)
+      window.location.href = "https://m.me";
+    }).catch(err => {
+      // Fallback redirection if clipboard access is denied
+      window.location.href = "https://m.me";
+    });
+  };
 
   return (
     <section id="register" className="max-w-4xl mx-auto px-6 py-20 border-t border-gray-900">
@@ -33,11 +47,11 @@ export default function EnrollmentForm() {
           Online Student <span className="text-blue-400">Enrollment Portal</span>
         </h2>
         <p className="text-gray-400 text-sm md:text-base">
-          Fill out the personal information fields below. Submitting will securely open up Facebook Messenger to instantly transmit your registration details directly to our head coach.
+          Fill out the personal information fields below. Submitting will securely copy your data and guide you straight to our official Facebook Messenger chat box.
         </p>
       </div>
 
-      <div className="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl space-y-6">
+      <form onSubmit={handleSubmit} className="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-10 shadow-2xl space-y-6">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Student Full Name */}
@@ -130,17 +144,17 @@ export default function EnrollmentForm() {
           </div>
         </div>
 
-        {/* DIRECT HYPERLINK SUBMIT ACTION */}
+        {/* Submit Button */}
         <div className="pt-4">
-          <a 
-            href={messengerUrl}
-            className="w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer block text-sm tracking-wide"
+          <button 
+            type="submit"
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer text-center block text-sm tracking-wide"
           >
             Submit & Open Messenger Setup
-          </a>
+          </button>
         </div>
 
-      </div>
+      </form>
     </section>
   );
 }
