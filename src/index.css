@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-vta-red: #D32F2F;
+  --color-vta-blue: #1976D2;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background-color: #111827;
+  color: #F3F4F6;
+}

@@ -1,0 +1,17 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        vtaRed: '#D32F2F',
+        vtaBlue: '#1976D2',
+        vtaDark: '#111827',
+      }
+    },
+  },
+  plugins: [],
+}
