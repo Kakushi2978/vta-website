@@ -134,8 +134,6 @@ export default function EnrollmentForm() {
         <div className="pt-4">
           <a 
             href={messengerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer block text-sm tracking-wide"
           >
             Submit & Open Messenger Setup
