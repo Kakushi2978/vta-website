@@ -1,3 +1,4 @@
+import { Facebook, Instagram } from 'lucide-react';
 import Branches from './Branches.jsx';
 import Achievements from "./Achievements.jsx";
 import EnrollmentForm from './EnrollmentForm.jsx';
@@ -7,8 +8,35 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 text-white selection:bg-red-600 selection:text-white">
       
       {/* 1. ANNOUNCEMENT BAR */}
-      <div className="bg-red-600 text-white text-xs font-semibold py-2 px-4 text-center tracking-wide">
-        📢 NOW ENROLLING: Join our Milo Summer Taekwondo Clinics & Regular Classes across Capiz!
+      <div className="bg-red-600 text-white text-xs font-semibold py-2 px-4 flex justify-between items-center tracking-wide w-full">
+        {/* Hidden left spacer maintains perfect centering for the text on large screens */}
+        <div className="hidden sm:block w-16"></div>
+        
+        <div className="flex-grow text-center pr-2 sm:pr-0">
+          📢 NOW ENROLLING: Join our Milo Summer Taekwondo Clinics & Regular Classes across Capiz!
+        </div>
+        
+        {/* Right-aligned functional social links */}
+        <div className="flex items-center gap-3 w-16 justify-end">
+          <a 
+            href="https://facebook.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="Facebook"
+            className="hover:opacity-80 hover:scale-110 transition-all duration-200"
+          >
+            <Facebook size={16} />
+          </a>
+          <a 
+            href="https://instagram.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="Instagram"
+            className="hover:opacity-80 hover:scale-110 transition-all duration-200"
+          >
+            <Instagram size={16} />
+          </a>
+        </div>
       </div>
 
       {/* 2. NAVIGATION HEADER */}
@@ -74,6 +102,9 @@ function App() {
 
       {/* 4. INTERACTIVE BRANCHES SELECTION */}
       <Branches />
+
+      {/* 5. ACHIEVEMENTS PANEL */}
+      <Achievements />
 
       {/* 6. ONLINE ENROLLMENT FORM */}
       <EnrollmentForm />
